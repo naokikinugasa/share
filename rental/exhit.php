@@ -12,7 +12,7 @@ require_once(__DIR__.'/Exhibit.php');
 
 $exhibit= new \MyAPP\Exhibit();
 
-$categorys = array('家電','生活用品','スポーツ','ガジェット','楽器','ファッション','工具','その他');
+$categorys = array('家電','生活用品','スポーツ','ガジェット','楽器','ファッション','趣味','その他');
 
 
 if (!function_exists('imagecreatetruecolor')) {

@@ -25,7 +25,7 @@ $totalPages = ceil($total / $PRODUCTS_PER_PAGE);
 
 
 
-$category = "工具";
+$category = "趣味";
 $products = $exhibit->getAllca($category);
 
 require_once(__DIR__.'/head.php');
@@ -34,7 +34,7 @@ require_once(__DIR__.'/head.php');
 <div id="container">
 
 <div id="product">
-<h2>工具</h2>
+<h2>趣味</h2>
 	<ul>
 	<?php foreach ($products as $product) : ?>
 		<a href="template.php?id=<?= ($product->id); ?>">

@@ -80,7 +80,7 @@ endforeach;
 				<li><a href="caGadgets.php">ガジェット</a></li>
 				<li><a href="caInstrument.php">楽器</a></li>
 				<li><a href="caFashion.php">ファッション</a></li>
-				<li><a href="caTool.php">工具</a></li>
+				<li><a href="caTool.php">趣味</a></li>
 				<li><a href="caOther.php">その他</a></li>
 			</ul>
 		</div>
