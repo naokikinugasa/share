@@ -1,0 +1,6 @@
+
+#####fastcgi#####
+AddHandler fcgid-script .php .phps
+FCGIWrapper "/home/newto/share.wwww.jp/php/php-cgi" .php
+FCGIWrapper "/home/newto/share.wwww.jp/php/php-cgi" .phps
+#####end:fastcgi#####
