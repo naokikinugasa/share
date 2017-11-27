@@ -19,10 +19,10 @@ require_once(__DIR__.'/head.php');
 
 <div id="cha" style="padding-top: 40px;">
 <div id="char">
-    <h2>ーレンタルのしかたー</h2>
+    <h2>ーレンタルのしかたー(パターン1)</h2>
         <div class="topNaviColumn">
         	<h2>1.商品を探す</h2>
-                <div class="topNaviPhoto"><img src="mercari2.jpg" alt="" /></div>
+                <div class="topNaviPhoto"><img src="images/mercari2.jpg" alt="" /></div>
                 <div class="topNaviDetail">レンタルしたい商品を商品一覧から探します。</div>
         </div><!-- /.topNaviColumn --></a>
         <div class="topNaviColumn">
@@ -44,12 +44,31 @@ require_once(__DIR__.'/head.php');
         <div class="topNaviColumn">
             <h2>2.メッセージでやりとり</h2>
                 <div class="topNaviPhoto"><img src="images/msg2.jpg" alt="" /></div>
-                <div class="topNaviDetail">レンタルしたいユーザーからメッセージがきたら、返信して日時・レンタル期間・受け渡し場所を決めます。</div>
+                <div class="topNaviDetail">メッシージをやり取りして、日時・レンタル期間・受け渡し場所を決めます。</div>
         </div><!-- /.topNaviColumn -->
         <div class="topNaviColumn">
             <h2>3.シェアする</h2>
                 <div class="topNaviPhoto"><img src="images/watasu2.png" alt="" /></div>
                 <div class="topNaviDetail">当日受け渡し場所に行って商品を渡し、料金を受け取りましょう。</div>
+        </div><!-- /.topNaviColumn -->
+</div>
+
+<div id="char">
+    <h2>ーレンタルのしかた(パターン2)ー</h2>
+        <div class="topNaviColumn">
+        	<h2>1.商品を探す</h2>
+                <div class="topNaviPhoto"><img src="images/mercari2.jpg" alt="" /></div>
+                <div class="topNaviDetail">レンタルしたい商品を商品一覧から探します。</div>
+        </div><!-- /.topNaviColumn --></a>
+        <div class="topNaviColumn">
+            <h2>2.予約する</h2>
+                <div class="topNaviPhoto"><img src="images/7b55d33ec62f13f5fe460afbd8f7f70d.jpg" alt="" /></div>
+                <div class="topNaviDetail">レンタル可能日から予約します。</div>
+        </div><!-- /.topNaviColumn -->
+        <div class="topNaviColumn">
+            <h2>3.レンタルする</h2>
+                <div class="topNaviPhoto"><img src="images/detail_image。jpg" alt="" /></div>
+                <div class="topNaviDetail">予約日当日に設置場所へ取りに行きましょう。</div>
         </div><!-- /.topNaviColumn -->
 </div>
 </div>
