@@ -22,7 +22,7 @@ require_once(__DIR__.'/head.php');
     <h2>ーレンタルのしかたー(パターン1)</h2>
         <div class="topNaviColumn">
         	<h2>1.商品を探す</h2>
-                <div class="topNaviPhoto"><img src="images/mercari2.jpg" alt="" /></div>
+                <div class="topNaviPhoto"><img src="images/projector3.jpg" alt="" /></div>
                 <div class="topNaviDetail">レンタルしたい商品を商品一覧から探します。</div>
         </div><!-- /.topNaviColumn --></a>
         <div class="topNaviColumn">
@@ -57,7 +57,7 @@ require_once(__DIR__.'/head.php');
     <h2>ーレンタルのしかた(パターン2)ー</h2>
         <div class="topNaviColumn">
         	<h2>1.商品を探す</h2>
-                <div class="topNaviPhoto"><img src="images/mercari2.jpg" alt="" /></div>
+                <div class="topNaviPhoto"><img src="images/projector3.jpg" alt="" /></div>
                 <div class="topNaviDetail">レンタルしたい商品を商品一覧から探します。</div>
         </div><!-- /.topNaviColumn --></a>
         <div class="topNaviColumn">
@@ -67,7 +67,7 @@ require_once(__DIR__.'/head.php');
         </div><!-- /.topNaviColumn -->
         <div class="topNaviColumn">
             <h2>3.レンタルする</h2>
-                <div class="topNaviPhoto"><img src="images/detail_image。jpg" alt="" /></div>
+                <div class="topNaviPhoto"><img src="images/detail_image.jpg" alt="" /></div>
                 <div class="topNaviDetail">予約日当日に設置場所へ取りに行きましょう。</div>
         </div><!-- /.topNaviColumn -->
 </div>
