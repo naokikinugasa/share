@@ -1,6 +1,5 @@
 <?php
 
-
 $user_id = $_SESSION['id'];
 $userhead = $exhibit->getusrinfo2($user_id);
 $readflag = 0;

@@ -64,41 +64,9 @@ require_once(__DIR__.'/head.php');
 </div>
 -->
 <div id="product">
-    <h2>商品一覧</h2>
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="runba2.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">ルンバ<br><br>￥500</p>
-            </div><!-- /.topNaviColumn --></a>
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="tako.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">たこ焼き器</p><br><p>￥200</p>
-            </div><!-- /.topNaviColumn -->
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="bike.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">自転車</p><br><p>￥100</p>
-            </div><!-- /.topNaviColumn -->
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="racket.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">ラケット</p><br><p>￥200</p>
-            </div><!-- /.topNaviColumn -->
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="runba2.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">ルンバ</p><br><p>￥500</p>
-            </div><!-- /.topNaviColumn --></a>
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="tako.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">たこ焼き器</p><br><p>￥200</p>
-            </div><!-- /.topNaviColumn -->
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="bike.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">自転車</p><br><p>￥100</p>
-            </div><!-- /.topNaviColumn -->
-            <div class="topNaviColumn2">
-                    <div class="topNaviPhoto2"><img src="racket.jpg" alt="" /></div>
-                    <p class="topNaviDetail2">ラケット</p><br><p>￥200</p>
-            </div><!-- /.topNaviColumn -->
-        <div style="clear:both;"></div>
-        <a class="myButtonlog2" href="products.php">もっと見る</a>
+
+    
+        <a class="myButtonlog2" href="products.php">商品一覧</a>
 </div>
 
 </div><!-- /container -->

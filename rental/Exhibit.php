@@ -40,7 +40,6 @@ class Exhibit{
 
   	//商品情報を取得
   	public function getproduct($id){
-  	  $id = $id;
       $stmt = $this->_db->query("select * from products WHERE id='$id'");
       $pro = $stmt->fetch(\PDO::FETCH_ASSOC);
       return $pro;
