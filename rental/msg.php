@@ -26,7 +26,7 @@ require_once(__DIR__.'/head.php');
 	<?php 
 		$msgs = $exhibit->getmsgTo3($user_id);
 		foreach ($msgs as $msg) : 
-			$user = $exhibit->getusrinfo2($msg->fromn); 
+			$user = $exhibit->getusrinfo($msg->fromn);
 			$product = $exhibit->getproduct($msg->number); ?>
 			<form action='template.php?id=<?= ($msg->number); ?>' method='POST'>
 			<div class="<?php if(($msg->checked) == 1) : ?>

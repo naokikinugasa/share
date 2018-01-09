@@ -206,11 +206,6 @@ class Exhibit{
 
   public function getusrinfo($id){
       $id = $id;
-      $stmt = $this->_db->query("select * from members where id='$id' ");
-      return $stmt->fetchALL(\PDO::FETCH_OBJ);
-    }
-  public function getusrinfo2($id){
-      $id = $id;
       $stmt = $this->_db->query("select * from members WHERE id='$id'");
       $pro = $stmt->fetch(\PDO::FETCH_ASSOC);
       return $pro;

@@ -44,7 +44,7 @@ function h($s) {
   //user
   $exhn = $pro['exhn'];
   $rnum = $pro['rnum'];
-  $userinfo = $exhibit->getusrinfo2($exhn);
+  $userinfo = $exhibit->getusrinfo($exhn);
   //message
   if (isset($_SESSION['id'])) {
     $fromn=$_SESSION['id'];
@@ -251,7 +251,7 @@ if($exhn==$_SESSION['id']){
       <div class="chat-area">
           <!-- チャット画像取得-->
           <?php 
-          $user = $exhibit->getusrinfo2($msg->fromn);
+          $user = $exhibit->getusrinfo($msg->fromn);
           ?>
           <img src="images/<?php if ($user['gazou'])  {
               echo $user['gazou'];
@@ -294,7 +294,7 @@ if($exhn==$_SESSION['id']){
     <div class="chat-area">
         <!-- チャット画像取得-->
         <?php 
-        $user = $exhibit->getusrinfo2($msg->fromn);
+        $user = $exhibit->getusrinfo($msg->fromn);
         ?>
         <img src="images/<?php if ($user['gazou'])  {
               echo $user['gazou'];

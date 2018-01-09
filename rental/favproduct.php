@@ -7,7 +7,7 @@ require_once(__DIR__.'/Exhibit.php');
 $exhibit = new \MyAPP\Exhibit();
 
 $id = $_SESSION['id'];
-$usrs = $exhibit->getusrinfo($id);
+//$usrs = $exhibit->getusrinfo($id);
 
 //page
 $page = $_REQUEST['page'];

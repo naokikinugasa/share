@@ -2,7 +2,7 @@
 if (isset($_SESSION['id'])) {
 
     $user_id = $_SESSION['id'];
-    $userhead = $exhibit->getusrinfo2($user_id);
+    $userhead = $exhibit->getusrinfo($user_id);
     $readflag = 0;
 
     //メッセージ判定
