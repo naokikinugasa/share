@@ -38,6 +38,12 @@ class Exhibit{
     $this->yearMonth = $this->_thisMonth->format('F Y');
   }
 
+
+
+    /*
+          商品を取得
+                  */
+
   	//商品情報を取得
   	public function getproduct($id){
       $stmt = $this->_db->query("select * from products WHERE id='$id'");
@@ -51,37 +57,38 @@ class Exhibit{
     }
     //商品一覧を取得(ページ)
     public function getAllPage($offset,$PRODUCTS_PER_PAGE){
-      $offset = $offset;
-      $PRODUCTS_PER_PAGE = $PRODUCTS_PER_PAGE;
       $stmt = $this->_db->query("select *from products order by id desc limit $offset,$PRODUCTS_PER_PAGE");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
     //商品一覧をカテゴリー別に取得
     public function getAllca($category){
-      $category=$category;
       $stmt = $this->_db->query("select *from products where category='$category' order by id desc");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
     //出品一覧を取得
     public function getAllex($id){
-      $id=$id;
       $stmt = $this->_db->query("select *from products where exhn='$id' order by id desc ");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
     //いいねした商品を取得
     public function getAllfav($id){
-      $id=$id;
       $stmt = $this->_db->query("select *from fav where favn='$id' order by id desc ");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
 
+
+
+
+
+
+    /*
+        いいね
+                */
     public function plusfav($fav,$title){
-      $title=$title;
       $fav++;
       $this->_db->exec("update products set fav=$fav WHERE title='$title' ");
     }
     public function minusfav($fav,$title){
-      $title=$title;
       $fav--;
       $this->_db->exec("update products set fav=$fav WHERE title='$title' ");
     }

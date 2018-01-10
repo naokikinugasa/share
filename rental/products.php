@@ -12,12 +12,15 @@ $exhibit->insertdb();
 }
 
 //page
-if (preg_match('/^[1-9][0-9]*$/', $_GET['page'])) {
-    $page = (int)$_GET['page'];
+if (isset($_GET['page'])) {
+    if (preg_match('/^[1-9][0-9]*$/', $_GET['page'])) {
+        $page = (int)$_GET['page'];
+    } else {
+        $page = 1;
+    }
 } else {
     $page = 1;
 }
-
 $PRODUCTS_PER_PAGE = 24;
 $offset = $PRODUCTS_PER_PAGE * ($page - 1);
 $products = $exhibit->getAllPage($offset,$PRODUCTS_PER_PAGE);

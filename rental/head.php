@@ -1,4 +1,7 @@
 <?php
+if (!isset($exhibit)) {
+    $exhibit = new \MyAPP\Exhibit();
+}
 if (isset($_SESSION['id'])) {
 
     $user_id = $_SESSION['id'];
