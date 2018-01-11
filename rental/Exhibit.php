@@ -250,10 +250,10 @@ class Exhibit{
     return $dt->modify('+1 month')->format('Y-m');
   }
 
-  public function show($rnum) {
-    $rnum = $rnum;
+  public function show($id) {
+    $id = $id;
     $tail = $this->_getTail();
-    $body = $this->_getBody($rnum);
+    $body = $this->_getBody($id);
     $head = $this->_getHead();
     $html = '<tr>' . $tail . $body . $head . '</tr>';
     echo $html;
@@ -269,8 +269,9 @@ class Exhibit{
     return $tail;
   }
 
-  private function _getBody($rnum) {
-    $rnum = $rnum;
+  private function _getBody($id) {
+    $id = $id;
+    $reservedDays = $this->getReservations($id);
     $body = '';
     $period = new \DatePeriod(
       new \DateTime('first day of ' . $this->yearMonth),
@@ -279,30 +280,20 @@ class Exhibit{
     );
     $today = new \DateTime('today');
 
-    //配列作成
-    $two = decbin($rnum);
-    $two = sprintf('%030s',$two);
-    $days = array();
-    for ($j=0; $j <30 ; $j++) { 
-      $get = substr($two, $j,1);
-      array_push($days, $get);
-    }
-    
-    $i = 0;
     foreach ($period as $day) {
       if ($day->format('w') === '0') { $body .= '</tr><tr>'; }
       $todayClass = ($day->format('Y-m-d') === $today->format('Y-m-d')) ? 'today' : '';
-        if($days[$i] == 1){
+        if(in_array($day->format('Y-m-d'),$reservedDays)){
           $color = 'red';
-          $check = 'hidden';
+          $check = 'checkbox';
         }else{
-          $color = 'gray';
+          $color = 'black';
           $check = 'checkbox';
         }
-        $i++;
-      $body .= sprintf("<td class='$color'><input type='$check'  name='day[]' value='%d' >%d</td>", $day->format('d'), $day->format('d'));
+        $tmp = $day->format('Y-m-d');
+      $body .= sprintf("<td class='$color'><input type='$check'  name='day[]' value='$tmp' >%d</td>", $day->format('d'));
 
-      
+
     }
     return $body;
   }
@@ -315,6 +306,14 @@ class Exhibit{
       $firstDayOfNextMonth->add(new \DateInterval('P1D'));
     }
     return $head;
+  }
+
+  public function reserve($id, $reservedDay) {
+      $this->_db->exec("insert into reservations (productID,date) VALUES ('$id','$reservedDay')");
+  }
+  public function getReservations($id){
+      $stmt = $this->_db->query("select date from reservations WHERE productid='$id'");
+      return $stmt->fetchALL(\PDO::FETCH_COLUMN);
   }
 
 

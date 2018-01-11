@@ -57,32 +57,23 @@ function h($s) {
 
 
   //予約
-  if(isset($_POST['reserve'])){
-    //配列作成
-    $two = decbin($rnum);
-    $two = sprintf('%030s',$two);
-    $days = array();
-    for ($j=0; $j <30 ; $j++) { 
-      $get = substr($two, $j,1);
-      array_push($days, $get);
-    }
-    /*
-    $days = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,);*/
-    $day = $_POST["day"];
-    for ($i=0; $i < count($day); $i++) { 
-      $days2 = array_splice($days,$day[$i]-1,1,1);
-    }
-    $two = 0;
-    for ($i=0; $i < 30; $i++) {
-      $get = array_shift($days);
-      $two.= $get;
-    }
-    $ten = bindec($two);
-    $rnum = $ten;
-    $exhibit->insertrnum($ten,$title);
-  }
+/**
+ * @param $rnum
+ * @param $exhibit
+ * @param $title
+ * @return float|int
+ */
 
-  //message
+if (isset($_POST['confirm2'])) {
+    var_dump($_POST['day']);
+    var_dump($id);
+    $reservedDays = $_POST['day'];
+    foreach ($reservedDays as $reservedDay) :
+    $exhibit->reserve($id,$reservedDay);
+    endforeach;
+}
+
+//message
   if(isset($_POST['res2'])){
     $exhibit->insertmsg($exhn,$id);
   }
@@ -118,7 +109,7 @@ require_once(__DIR__.'/head.php');
            }else{?>
               <input type="hidden" name="remove" value="remove">
               <input class="favButton" type="submit" value="♡いいね <?php echo $fav; ?>"><?php
-           }?>   
+           }?>
         </form>
         <div class="syouhinsetumei">商品説明</div>
         <p style="padding: 20px; word-wrap:break-word;"><?php echo $pro['honbun'];?></p>
@@ -149,58 +140,13 @@ require_once(__DIR__.'/head.php');
     </tbody>
 </table>
 
-<?php if(isset($_POST['confirm'])){?>
-    <div class="syouhinsetumei" style="margin-top: 50px;">日にちを選択してください。</div>
-    <table class="calConfirm">
-    <thead>
-      <tr>
-        <th><a href="<?= $title?>.php?t=<?php echo h($exhibit->prev); ?>">&laquo;</a></th>
-        <th colspan="5"><?php echo h($exhibit->yearMonth); ?></th>
-        <th><a href="<?= $title?>.php?t=<?php echo h($exhibit->next); ?>">&raquo;</a></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Sun</td>
-        <td>Mon</td>
-        <td>Tue</td>
-        <td>Wed</td>
-        <td>Thu</td>
-        <td>Fri</td>
-        <td>Sat</td>
-      </tr>
-      
-    </tbody>
-    <tfoot>
-      <tr>
-        <th colspan="7" style="color: white">Today</th>
-      </tr>
-    </tfoot>
-    <form action='thanks.php' method='POST'>
-    <?php $exhibit->show($rnum); ?>
-    <input type="hidden" name="rnum" value="<?= $rnum; ?>">
-    <input type="hidden" name="title" value="<?= $title; ?>">
-    <input type='submit' name='confirm2' value='確定する' class="myButtonConfirm" >
-    <!--
-    <?php print_r($day); ?>
-    <?php print_r($days); ?>
-    <?= $two?>
-    <?= $ten?>
-    -->
-  </form>
-  </table>
-  <div id="yohaku">yohaku</div>
-    <?php
-
-    }else{
-      ?>
       <div class="syouhinsetumei">レンタル可能日</div>
       <table class="cal">
     <thead>
       <tr>
-        <th><a href="<?= $title?>.php?t=<?php echo h($exhibit->prev); ?>">&laquo;</a></th>
+        <th><a href="template.php?id=<?php echo $id ?>&t=<?php echo h($exhibit->prev); ?>">&laquo;</a></th>
         <th colspan="5"><?php echo h($exhibit->yearMonth); ?></th>
-        <th><a href="<?= $title?>.php?t=<?php echo h($exhibit->next); ?>">&raquo;</a></th>
+        <th><a href="template.php?id=<?php echo $id ?>&t=<?php echo h($exhibit->next); ?>">&raquo;</a></th>
       </tr>
     </thead>
     <tbody>
@@ -213,18 +159,11 @@ require_once(__DIR__.'/head.php');
         <td>Fri</td>
         <td>Sat</td>
       </tr>
-      
-      <!--<form action='' method='POST'>-->
-      <?php $exhibit->show($rnum); ?>
-      <!--<input type='submit' name='reserve' value='予約'>-->
-      
-      <!--
-      <?php print_r($day); ?>
-      <?php print_r($days); ?>
-      <?= $two?>
-      <?= $ten?>
-      -->
-      <!--</form>-->
+      <form action='reserve.php?id=<?php echo $id ?>' method="POST">
+          <?php $exhibit->show($id); ?>
+          <input type="hidden" name="confirm" value="confirm">
+          <input class="myButton" type="submit" value="レンタルする">
+      </form>
     </tbody>
     <tfoot>
       <tr>
@@ -324,14 +263,8 @@ if($exhn==$_SESSION['id']){
      <input class="bu" type="submit" value="送信">
     </form>
   </div>
-  <form action='' method="POST">
-          <input type="hidden" name="confirm" value="confirm">
-          <input class="myButton" type="submit" value="レンタルする">
-  </form>
 <?php
-}
-
-  }?>
+}?>
 
 
 </div>
