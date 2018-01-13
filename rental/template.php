@@ -3,8 +3,10 @@ session_start();
 
 require_once(__DIR__ . '/config.php');
 require_once(__DIR__.'/Exhibit.php');
+require_once(__DIR__.'/Calendar.php');
 
 $exhibit = new \MyAPP\Exhibit();
+$calendar = new Calendar();
 
 function h($s) {
   return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
@@ -135,9 +137,9 @@ require_once(__DIR__.'/head.php');
       <table class="cal">
     <thead>
       <tr>
-        <th><a href="template.php?id=<?php echo $id ?>&t=<?php echo h($exhibit->prev); ?>">&laquo;</a></th>
-        <th colspan="5"><?php echo h($exhibit->yearMonth); ?></th>
-        <th><a href="template.php?id=<?php echo $id ?>&t=<?php echo h($exhibit->next); ?>">&raquo;</a></th>
+        <th><a href="template.php?id=<?php echo $id ?>&t=<?php echo h($calendar->prev); ?>">&laquo;</a></th>
+        <th colspan="5"><?php echo h($calendar->yearMonth); ?></th>
+        <th><a href="template.php?id=<?php echo $id ?>&t=<?php echo h($calendar->next); ?>">&raquo;</a></th>
       </tr>
     </thead>
     <tbody>
@@ -150,7 +152,7 @@ require_once(__DIR__.'/head.php');
         <td>Fri</td>
         <td>Sat</td>
       </tr>
-          <?php $exhibit->show($id); ?>
+          <?php $calendar->show($id, $exhibit); ?>
           <input type="hidden" name="confirm" value="confirm">
           <input class="myButton" type="submit" value="レンタルする">
     </tbody>
