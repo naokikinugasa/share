@@ -102,12 +102,6 @@ class Exhibit{
     $favn = $favn;
     $this->_db->exec("delete from fav where number='$number' AND favn='$favn'");
     }
-
-    public function insertrnum($ten,$title){
-    $rnum = $ten;
-    $title = $title;
-    $this->_db->exec("update products set rnum=$rnum where title='$title' ");
-    }
     
     public function getfavexist($number,$favn){
     $number = $number;
@@ -284,14 +278,17 @@ class Exhibit{
       if ($day->format('w') === '0') { $body .= '</tr><tr>'; }
       $todayClass = ($day->format('Y-m-d') === $today->format('Y-m-d')) ? 'today' : '';
         if(in_array($day->format('Y-m-d'),$reservedDays)){
-          $color = 'red';
-          $check = 'checkbox';
+          $color = 'gray';
+          $check = 'hidden';
+          $name  = 'hidden';
+//          TODO:hiddenじゃなくてcssで消す
         }else{
           $color = 'black';
           $check = 'checkbox';
+          $name  = 'day[]';
         }
         $tmp = $day->format('Y-m-d');
-      $body .= sprintf("<td class='$color'><input type='$check'  name='day[]' value='$tmp' >%d</td>", $day->format('d'));
+      $body .= sprintf("<td class='$color'><input type='$check'  name='$name' value='$tmp'>%d</td>", $day->format('d'));
 
 
     }

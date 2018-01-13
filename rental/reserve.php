@@ -12,13 +12,10 @@ function h($s) {
 
  $id = $_GET['id'];
  $pro = $exhibit->getproduct($id);
- $title = $pro['title'];
- $img = $pro['gazou'];
  $fav = 0;
 
-  //user
+  //出品者のリンクを取るためだけ
   $exhn = $pro['exhn'];
-  $rnum = $pro['rnum'];
   $userinfo = $exhibit->getusrinfo($exhn);
 
 
@@ -26,6 +23,7 @@ if (isset($_POST['confirm2'])) {
     foreach ($_POST['day'] as $reservedDay) :
     $exhibit->reserve($id,$reservedDay);
     endforeach;
+    header("Location: thanks.php");
 }
 
 require_once(__DIR__.'/head.php');
@@ -35,8 +33,8 @@ require_once(__DIR__.'/head.php');
 <div id="container">
 <div id="product">
 <div class="topNaviColumn3">
-        <div class="topNaviPhoto3"><img src="images/<?= $img ?>" alt="" /></div>
-        <h3 class="name"><?= $title ?></h3>
+        <div class="topNaviPhoto3"><img src="images/<?= $pro['gazou'] ?>" alt="" /></div>
+        <h3 class="name"><?= $pro['title'] ?></h3>
         <h3 class="name"><?php echo $pro['price'];?></h3>
         <div class="syouhinsetumei">商品説明</div>
         <p style="padding: 20px; word-wrap:break-word;"><?php echo $pro['honbun'];?></p>

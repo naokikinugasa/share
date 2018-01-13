@@ -12,8 +12,6 @@ function h($s) {
 
  $id = $_GET['id'];
  $pro = $exhibit->getproduct($id);
- $title = $pro['title'];
- $img = $pro['gazou'];
  $fav = 0;
 
  //DB++
@@ -30,48 +28,26 @@ function h($s) {
   $favn = $_SESSION['id'];
  }
  if(isset($goods)&& $goods== 'good') {
-    $exhibit->plusfav($fav,$title);
+    $exhibit->plusfav($fav,$pro['title']);
     $pro = $exhibit->getproduct($id);
     $fav = $pro['fav'];
     $exhibit->insertfav($id,$favn);
  }
  if(isset($remove)&&$remove == 'remove'){
-    $exhibit->minusfav($fav,$title);
+    $exhibit->minusfav($fav,$pro['title']);
     $pro = $exhibit->getproduct($id);
     $fav = $pro['fav'];
     $exhibit->deletefav($id,$favn);
  }
   //user
+  //TODO:関連情報をphp側で取るか、dbの結合で取るか。
   $exhn = $pro['exhn'];
-  $rnum = $pro['rnum'];
   $userinfo = $exhibit->getusrinfo($exhn);
   //message
   if (isset($_SESSION['id'])) {
     $fromn=$_SESSION['id'];
   }
 
-  $day = array();
-  $days = array();
-  $two = 0;
-  $ten = 0;
-
-
-  //予約
-/**
- * @param $rnum
- * @param $exhibit
- * @param $title
- * @return float|int
- */
-
-if (isset($_POST['confirm2'])) {
-    var_dump($_POST['day']);
-    var_dump($id);
-    $reservedDays = $_POST['day'];
-    foreach ($reservedDays as $reservedDay) :
-    $exhibit->reserve($id,$reservedDay);
-    endforeach;
-}
 
 //message
   if(isset($_POST['res2'])){
@@ -92,12 +68,25 @@ if (isset($_POST['confirm2'])) {
 require_once(__DIR__.'/head.php');
  ?>
 
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.0.min.js"></script>
+<script>
+    $(function(){
+        $('.checkValidation').click(function(){
+            var check_count = $('.checkValidation :checked').length;
+            if (check_count == 0 ){
+                alert('レンタル日を選択してください')
+                return false;
+            }
+        });
+    });
+</script>
+
 
 <div id="container">
 <div id="product">
 <div class="topNaviColumn3">
-        <div class="topNaviPhoto3"><img src="images/<?= $img ?>" alt="" /></div>
-        <h3 class="name"><?= $title ?></h3>
+        <div class="topNaviPhoto3"><img src="images/<?= $pro['gazou'] ?>" alt="" /></div>
+        <h3 class="name"><?= $pro['title'] ?></h3>
         <h3 class="name"><?php echo $pro['price'];?></h3>
         <!--いいね-->
         <form action="" method="post">
@@ -141,6 +130,8 @@ require_once(__DIR__.'/head.php');
 </table>
 
       <div class="syouhinsetumei">レンタル可能日</div>
+    <form class="checkValidation" action='reserve.php?id=<?php echo $id ?>' method="POST">
+
       <table class="cal">
     <thead>
       <tr>
@@ -159,11 +150,9 @@ require_once(__DIR__.'/head.php');
         <td>Fri</td>
         <td>Sat</td>
       </tr>
-      <form action='reserve.php?id=<?php echo $id ?>' method="POST">
           <?php $exhibit->show($id); ?>
           <input type="hidden" name="confirm" value="confirm">
           <input class="myButton" type="submit" value="レンタルする">
-      </form>
     </tbody>
     <tfoot>
       <tr>
@@ -171,7 +160,9 @@ require_once(__DIR__.'/head.php');
       </tr>
     </tfoot>
   </table>
+  </form>
 <!--メッセージ-->
+    <div id="error"></div>
 
 
 <?php
