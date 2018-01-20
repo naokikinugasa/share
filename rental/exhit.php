@@ -9,8 +9,10 @@ define('THUMBNAIL_DIR', __DIR__ . '/thumbs');
 
 require_once(__DIR__ . '/config.php');
 require_once(__DIR__.'/Exhibit.php');
+require_once(__DIR__.'/ImgUpload.php');
 
-$exhibit= new \MyAPP\Exhibit();
+$exhibit = new \MyAPP\Exhibit();
+$imgUpload = new \MyApp\ImgUpload();
 
 $categorys = array('家電','生活用品','スポーツ','ガジェット','楽器','ファッション','趣味','その他');
 
@@ -25,7 +27,7 @@ function h($s) {
 }
 $image='';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $image = $exhibit->upload();
+  $image = $imgUpload->upload();
 }
 
 

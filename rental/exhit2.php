@@ -9,8 +9,10 @@ define('THUMBNAIL_DIR', __DIR__ . '/thumbs');
 
 require_once(__DIR__ . '/config.php');
 require_once(__DIR__.'/Exhibit.php');
+require_once(__DIR__.'/ImgUpload.php');
 
 $exhibit= new \MyAPP\Exhibit();
+$imgUpload = new \MyApp\ImgUpload();
 
 $categorys = array('家電','工具','服');
 
