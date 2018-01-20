@@ -30,11 +30,6 @@ class Exhibit{
       $pro = $stmt->fetch(\PDO::FETCH_ASSOC);
       return $pro;
     }
-  	//商品一覧を取得
-    public function getAll(){
-    	$stmt = $this->_db->query('select *from products order by id desc');
-    	return $stmt->fetchALL(\PDO::FETCH_OBJ);
-    }
     //商品一覧を取得(ページ)
     public function getAllPage($offset,$PRODUCTS_PER_PAGE){
       $stmt = $this->_db->query("select *from products order by id desc limit $offset,$PRODUCTS_PER_PAGE");
@@ -125,11 +120,6 @@ class Exhibit{
     $number=$id;
     $this->_db->exec("insert into msg (content,fromn,ton,number) values ('$content','$fromn','$exhn','$number')");
   }
-  public function getAllmsg(){
-      $id=$_SESSION['id'];
-      $stmt = $this->_db->query("select *from msg where ton=$id order by id desc");
-      return $stmt->fetchALL(\PDO::FETCH_OBJ);
-    }
   
   
   public function getmsg($ton,$fromn,$number){
@@ -150,20 +140,9 @@ class Exhibit{
       $stmt = $this->_db->query("select * from msg as a WHERE ton='$ton' and id=(select MAX(id) from msg as b WHERE a.fromn=b.fromn and a.number=b.number) order by id desc");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
-  public function getmsgTo2($user_id,$fromn){
-      $ton=$user_id;
-      $fromn = $fromn;
-      $stmt = $this->_db->query("select * from msg as c WHERE ton='$ton' and id=(select MAX(id) from msg as d WHERE c.number=d.number and fromn='$fromn') order by id desc");
-      return $stmt->fetchALL(\PDO::FETCH_OBJ);
-    }
   public function getmsgTo3($user_id){
       $ton=$user_id;
       $stmt = $this->_db->query("select * from msg  WHERE ton='$ton' order by id desc");
-      return $stmt->fetchALL(\PDO::FETCH_OBJ);
-    }
-  public function getmsgselfall($id){
-      $ton=$id;
-      $stmt = $this->_db->query("select max(id),fromn,number,content from msg WHERE ton='$ton' GROUP BY number,fromn order by id desc");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
   public function getmsgselfalllimit($id){
@@ -179,11 +158,6 @@ class Exhibit{
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
 
-  public function getusr($id){
-      $id = $id;
-      $stmt = $this->_db->query("select * from fav where id='$id' ");
-      return $stmt->fetchALL(\PDO::FETCH_OBJ);
-    }
 
   public function getusrinfo($id){
       $id = $id;

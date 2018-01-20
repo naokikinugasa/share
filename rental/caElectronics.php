@@ -7,10 +7,6 @@ require_once(__DIR__.'/Exhibit.php');
 $exhibit = new \MyAPP\Exhibit();
 
 
-if(isset($_POST['title'])){
-$exhibit->insertdb();
-}
-
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
 }

@@ -6,8 +6,6 @@ require_once(__DIR__.'/Exhibit.php');
 
 $exhibit= new \MyAPP\Exhibit();
 
-$categorys = array('家電','工具','服');
-
 require_once(__DIR__.'/head.php');
 ?>
 
