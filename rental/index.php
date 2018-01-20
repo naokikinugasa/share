@@ -48,7 +48,7 @@ require_once(__DIR__.'/head.php');
                 <h3>3.必要最低限の生活を</h3>
                     <div class="topNaviPhoto"><img src="images/heya2.jpg" alt="" /></div>
                     <div class="topNaviDetail">必要最低限のモノしかないきれいな部屋で快適に過ごそう。</div>
-                    <a class="myButtonlog3" href="howto.php">使い方</a>
+                    <a class="myButtonlog3" href="/share/rental/template/howto.php">使い方</a>
             </div><!-- /.topNaviColumn -->
 </div>
 </div>

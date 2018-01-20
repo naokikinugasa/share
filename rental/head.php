@@ -28,13 +28,13 @@ if (isset($_SESSION['id'])) {
   <meta charset = "utf-8">
   <meta name="viewport" content="width=device-width,initial=1.0">
   <title>web</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="/share/rental/style.css">
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
 </head>
 <body>
 	<div id="header">
 		<div id="headerTop">
-			<h1><a href="index.php"><img src="images/logo7.png" alt="" width="160px" height="60px"/></a></h1>
+			<h1><a href="/share/rental/index.php"><img src="/share/rental/images/logo7.png" alt="" width="160px" height="60px"/></a></h1>
 
 <!-- 検索機能
 <form name="searchform4" id="searchform4" method="get" action="#">  

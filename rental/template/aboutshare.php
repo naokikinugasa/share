@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-require_once(__DIR__ . '/config.php');
-require_once(__DIR__.'/Exhibit.php');
+require_once(__DIR__ . '/../config.php');
+require_once(__DIR__.'/../Exhibit.php');
 
-$exhibit= new \MyAPP\Exhibit();
-
-require_once(__DIR__.'/head.php');
+require_once(__DIR__.'/../head.php');
 ?>
 
 <div id="container">
@@ -28,5 +26,5 @@ text-align: center;">
 </div><!-- /container -->
 
 <?php
-require_once(__DIR__.'/footer.php');
+require_once(__DIR__.'/../footer.php');
 ?>

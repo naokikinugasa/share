@@ -23,7 +23,7 @@ if(!empty($_POST)){
 		$exhibit->register();
 		$result = $exhibit->login();
 		$_SESSION['id'] = $result['id'];
-		header('Location: thanksregister.php');
+		header('Location: /share/rental/template/thanksregister.php');
 	}
 }
 

@@ -27,7 +27,7 @@ if (isset($_POST['confirm2'])) {
     foreach ($_POST['day'] as $reservedDay) :
     $exhibit->reserve($id,$reservedDay);
     endforeach;
-    header("Location: thanks.php");
+    header("Location: /share/rental/template/thanks.php");
 }
 
 require_once(__DIR__.'/head.php');
