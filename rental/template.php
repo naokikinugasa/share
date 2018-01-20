@@ -18,6 +18,9 @@ function h($s) {
 
  //DB++
  if (isset($_POST['good'])) {
+     if (!isset($_SESSION['id'])) {
+         header("Location: register.php");
+     }
   $goods = $_POST['good'];
  }
  if (isset($_POST['remove'])) {
@@ -93,7 +96,11 @@ require_once(__DIR__.'/head.php');
         <!--いいね-->
         <form action="" method="post">
          <?php
-           $favexist = $exhibit->getfavexist($id,$favn);
+            if (isset($_SESSION['id'])) {
+                $favexist = $exhibit->getfavexist($id,$favn);
+            } else {
+                $favexist = false;
+            }
            if(!$favexist){?>
               <input type="hidden" name="good" value="good">
               <input class="favButton" type="submit" value="♡いいね <?php echo $fav; ?>"><?php
@@ -168,96 +175,101 @@ require_once(__DIR__.'/head.php');
 
 
 <?php
-if($exhn==$_SESSION['id']){
-  $msgs = $exhibit->getmsgself($exhn,$id);
+if (isset($_SESSION['id'])) {
+    if($exhn==$_SESSION['id']){
+      $msgs = $exhibit->getmsgself($exhn,$id);
 
-  if(isset($_POST['fromn'])){
-    $fromn=$_POST['fromn'];
-    $msgs = $exhibit->getmsg($exhn,$fromn,$id);
-    ?>
-    <div class="syouhinsetumei">メッセージ</div>
-    <div class="chat-box">
-  <?php 
-     foreach ($msgs as $msg) : ?>
-     
-      <div class="chat-area">
-          <!-- チャット画像取得-->
-          <?php 
-          $user = $exhibit->getusrinfo($msg->fromn);
-          ?>
-          <img src="images/<?php if ($user['gazou'])  {
-              echo $user['gazou'];
-            }else{
-              echo "default.png";
-            }?>" style="border-radius: 20px;
-  height: 40px;
-  width: 40px;
-  margin-left: 5%;" />
-          <div class="chat-hukidashi">
-            <p>
-            <?= ($msg->content); ?>
-            </p>
-          </div>
-      </div>
-      <?php if(($msg->ton)==$_SESSION['id']){
-        $exhibit->msgCheck($msg->id); 
-       }?>
-    <?php endforeach; 
-  ?>
-  </div>  
-  <div class="me">
-    <p>メッセージを送る</p>
-    <form action="" method="post">
-     <input type="hidden" name="res" value="res">
-     <input type="hidden" name="fromn" value="<?= $fromn; ?>">
-     <textarea class="text" name="content" cols="50" rows="4" placeholder="出品者へメッセージを送る"></textarea><br>
-     <input class="bu" type="submit" value="送信">
-    </form>
-    </div>
-  <?php
-  }
-}else{
-?>
-  <div class="syouhinsetumei">メッセージ</div>
-  <div class="chat-box">
-  <?php $msgs = $exhibit->getmsg($exhn,$fromn,$id);
-    if($msgs){
-     foreach ($msgs as $msg) : ?>
-    <div class="chat-area">
-        <!-- チャット画像取得-->
-        <?php 
-        $user = $exhibit->getusrinfo($msg->fromn);
+      if(isset($_POST['fromn'])){
+        $fromn=$_POST['fromn'];
+        $msgs = $exhibit->getmsg($exhn,$fromn,$id);
         ?>
-        <img src="images/<?php if ($user['gazou'])  {
-              echo $user['gazou'];
-            }else{
-              echo "default.png";
-            }?>" style="border-radius: 20px;
-  height: 40px;
-  width: 40px;
-  margin-left: 5%;" />
-        <div class="chat-hukidashi">
-          <p>
-          <?= ($msg->content); ?>
-          </p>
+        <div class="syouhinsetumei">メッセージ</div>
+        <div class="chat-box">
+      <?php
+         foreach ($msgs as $msg) : ?>
+
+          <div class="chat-area">
+              <!-- チャット画像取得-->
+              <?php
+              $user = $exhibit->getusrinfo($msg->fromn);
+              ?>
+              <img src="images/<?php if ($user['gazou'])  {
+                  echo $user['gazou'];
+                }else{
+                  echo "default.png";
+                }?>" style="border-radius: 20px;
+      height: 40px;
+      width: 40px;
+      margin-left: 5%;" />
+              <div class="chat-hukidashi">
+                <p>
+                <?= ($msg->content); ?>
+                </p>
+              </div>
+          </div>
+          <?php if(($msg->ton)==$_SESSION['id']){
+            $exhibit->msgCheck($msg->id);
+           }?>
+        <?php endforeach;
+      ?>
+      </div>
+      <div class="me">
+        <p>メッセージを送る</p>
+        <form action="" method="post">
+         <input type="hidden" name="res" value="res">
+         <input type="hidden" name="fromn" value="<?= $fromn; ?>">
+         <textarea class="text" name="content" cols="50" rows="4" placeholder="出品者へメッセージを送る"></textarea><br>
+         <input class="bu" type="submit" value="送信">
+        </form>
         </div>
-    </div>
-    <?php if(($msg->ton)==$_SESSION['id']){
-        $exhibit->msgCheck($msg->id); 
-       }?>
-    <?php endforeach; 
-  }?>
-  </div>
-  <div class="me">
-    <p>出品者へメッセージを送る</p>
-    <form action="" method="post">
-     <input type="hidden" name="res2" value="res2">
-     <textarea class="text" name="content" cols="50" rows="5"></textarea><br>
-     <input class="bu" type="submit" value="送信">
-    </form>
-  </div>
-<?php
-}?>
+      <?php
+      }
+    }else{
+    ?>
+      <div class="syouhinsetumei">メッセージ</div>
+      <div class="chat-box">
+      <?php $msgs = $exhibit->getmsg($exhn,$fromn,$id);
+        if($msgs){
+         foreach ($msgs as $msg) : ?>
+        <div class="chat-area">
+            <!-- チャット画像取得-->
+            <?php
+            $user = $exhibit->getusrinfo($msg->fromn);
+            ?>
+            <img src="images/<?php if ($user['gazou'])  {
+                  echo $user['gazou'];
+                }else{
+                  echo "default.png";
+                }?>" style="border-radius: 20px;
+      height: 40px;
+      width: 40px;
+      margin-left: 5%;" />
+            <div class="chat-hukidashi">
+              <p>
+              <?= ($msg->content); ?>
+              </p>
+            </div>
+        </div>
+        <?php if(($msg->ton)==$_SESSION['id']){
+            $exhibit->msgCheck($msg->id);
+           }?>
+        <?php endforeach;
+      }?>
+      </div>
+      <div class="me">
+        <p>出品者へメッセージを送る</p>
+        <form action="" method="post">
+         <input type="hidden" name="res2" value="res2">
+         <textarea class="text" name="content" cols="50" rows="5"></textarea><br>
+         <input class="bu" type="submit" value="送信">
+        </form>
+      </div>
+    <?php
+    }
+} else { ?>
+    <div class="syouhinsetumei">メッセージ</div>
+    <p>*メッシージを見るにはログインしてください</p>
+<?php }?>
 
 
 </div>

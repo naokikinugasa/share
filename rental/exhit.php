@@ -84,7 +84,8 @@ require_once(__DIR__.'/head.php');
 		<input class="myButtonlog2" type="submit" name="write" value="出品" style="height: 40px;">
 	</form>
 	<p>*出品上の注意</p>
-	<p>ゲーム・漫画・DVD等は著作権に違反するため出品できません。これは出品しても大丈夫なのだろうかと疑問に思うものがあれば、お問い合わせページよりお気軽にご質問ください。</p><br>
+<!--        TODO:お問い合わせリンクに下線つける-->
+        <p>ゲーム・漫画・DVD等は著作権に違反するため出品できません。これは出品しても大丈夫なのだろうかと疑問に思うものがあれば、<a href="contact.php">お問い合わせページ</a>よりお気軽にご質問ください。</p><br>
 	</div>
 </div>
 <?php
