@@ -28,7 +28,7 @@ if (isset($_SESSION['id'])) {
   <meta charset = "utf-8">
   <meta name="viewport" content="width=device-width,initial=1.0">
   <title>web</title>
-  <link rel="stylesheet" type="text/css" href="/share/rental/style.css">
+  <link rel="stylesheet" type="text/css" href="/share/rental/css/style.css">
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
 </head>
 <body>

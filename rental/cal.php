@@ -17,7 +17,7 @@ function h($s) {
 <head>
   <meta charset="utf-8">
   <title>Calendar</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/share/rental/css/style.css">
 </head>
 <body>
   <table>
