@@ -24,6 +24,7 @@ if(!empty($_POST)){
 		$result = $exhibit->login();
 		$_SESSION['id'] = $result['id'];
 		header('Location: /share/rental/template/thanksregister.php');
+		exit();
 	}
 }
 

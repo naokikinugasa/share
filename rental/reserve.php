@@ -12,6 +12,7 @@ function h($s) {
 
 if (!isset($_SESSION['id'])) {
     header("Location: register.php");
+    exit();
 }
 
  $id = $_GET['id'];
@@ -28,6 +29,7 @@ if (isset($_POST['confirm2'])) {
     $exhibit->reserve($id,$reservedDay);
     endforeach;
     header("Location: /share/rental/template/thanks.php");
+    exit();
 }
 
 require_once(__DIR__.'/head.php');

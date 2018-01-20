@@ -20,6 +20,7 @@ function h($s) {
  if (isset($_POST['good'])) {
      if (!isset($_SESSION['id'])) {
          header("Location: register.php");
+         exit();
      }
   $goods = $_POST['good'];
  }

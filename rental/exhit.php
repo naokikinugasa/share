@@ -26,17 +26,15 @@ function h($s) {
   return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
 $image='';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $image = $imgUpload->upload();
+if (isset($_FILES['image'])) {
+    $image = $imgUpload->upload();
 }
 
 
 //IsLogin?
-if (isset($_SESSION['id'])) {
-	
-}else {
-	header('Location: login.php');
-	exit();
+if (!isset($_SESSION['id'])) {
+    header('Location: login.php');
+    exit();
 }
 
 require_once(__DIR__.'/head.php');
@@ -54,7 +52,7 @@ require_once(__DIR__.'/head.php');
 		<input type="file" name="image">
 		<input type="submit" value="upload">←ファイルを選択後このボタンを押してください
 		</form>
-	<form method="post" action="products.php">
+	<form method="post" action="exhit2.php">
 		<p>商品名</p>
 		<input class="loginform" type="text" name="title" placeholder="例) プロジェクター" ><br>
 		<p>商品説明</p>

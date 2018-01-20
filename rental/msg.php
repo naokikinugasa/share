@@ -14,6 +14,7 @@ if(!empty($_POST)){
 			$_SESSION['id'] = $result['id'];
 			echo $_SESSION['id'];
 			header('Location: mypage.php');
+			exit();
 		}
 	}
 }	

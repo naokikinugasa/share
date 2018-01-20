@@ -13,6 +13,7 @@ if(!empty($_POST)){
 		if($result){
 			$_SESSION['id'] = $result['id'];
 			header('Location: mypage.php');
+			exit();
 		}
 	}
 }	
