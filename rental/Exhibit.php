@@ -6,7 +6,6 @@ namespace MyApp;
 
 class Exhibit{
   public $_db;
-  private $_imageFileName;
 
 	public function __construct(){
 		try {
@@ -34,10 +33,10 @@ class Exhibit{
       $stmt = $this->_db->query("select *from products order by id desc limit $offset,$PRODUCTS_PER_PAGE");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
-    //商品一覧をカテゴリー別に取得
-    public function getAllca($category){
-      $stmt = $this->_db->query("select *from products where category='$category' order by id desc");
-      return $stmt->fetchALL(\PDO::FETCH_OBJ);
+    //商品一覧をカテゴリー別に取得(ページ)
+    public function getAllPageCategory($offset,$PRODUCTS_PER_PAGE,$category){
+        $stmt = $this->_db->query("select *from products where category='$category' order by id desc limit $offset,$PRODUCTS_PER_PAGE");
+        return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
     //出品一覧を取得
     public function getAllex($id){

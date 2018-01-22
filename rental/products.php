@@ -27,8 +27,6 @@ $products = $exhibit->getAllPage($offset,$PRODUCTS_PER_PAGE);
 $total = $exhibit->_db->query("select count(*) from products")->fetchColumn();
 $totalPages = ceil($total / $PRODUCTS_PER_PAGE);
 
-
-
 require_once(__DIR__.'/head.php');
 ?>
 
