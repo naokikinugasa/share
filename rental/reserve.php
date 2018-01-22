@@ -15,18 +15,12 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
- $id = $_GET['id'];
- $pro = $exhibit->getproduct($id);
- $fav = 0;
 
-  //出品者のリンクを取るためだけ
-  $exhn = $pro['exhn'];
-  $userinfo = $exhibit->getusrinfo($exhn);
 
 
 if (isset($_POST['confirm2'])) {
     foreach ($_POST['day'] as $reservedDay) :
-    $exhibit->reserve($id,$reservedDay);
+    $exhibit->reserve($_GET['id'], $reservedDay);
     endforeach;
     header("Location: /share/rental/template/thanks.php");
     exit();
@@ -39,34 +33,34 @@ require_once(__DIR__.'/head.php');
 <div id="container">
 <div id="product">
 <div class="topNaviColumn3">
-        <div class="topNaviPhoto3"><img src="images/<?= $pro['gazou'] ?>" alt="" /></div>
-        <h3 class="name"><?= $pro['title'] ?></h3>
-        <h3 class="name"><?php echo $pro['price'];?></h3>
+        <div class="topNaviPhoto3"><img src="images/<?= $_POST['gazou'] ?>" alt="" /></div>
+        <h3 class="name"><?= $_POST['title'] ?></h3>
+        <h3 class="name"><?php echo $_POST['price'];?></h3>
         <div class="syouhinsetumei">商品説明</div>
-        <p style="padding: 20px; word-wrap:break-word;"><?php echo $pro['honbun'];?></p>
+        <p style="padding: 20px; word-wrap:break-word;"><?php echo $_POST['honbun'];?></p>
 </div><!-- /.topNaviColumn -->
 <div class="syouhinsetumei">詳細</div>
 <table class="sample_03">
     <tbody>
         <tr>
             <th>カテゴリー</th>
-            <td><?php echo $pro['category'];?></td>
+            <td><?php echo $_POST['category'];?></td>
         </tr>
         <tr>
             <th>受け渡し場所</th>
-            <td><?php echo $pro['place'];?></td>
+            <td><?php echo $_POST['place'];?></td>
         </tr>
         <tr>
             <th>レンタル日数</th>
-            <td><?php echo $pro['days'];?></td>
+            <td><?php echo $_POST['days'];?></td>
         </tr>
         <tr>
             <th>価格</th>
-            <td><?php echo $pro['price'];?></td>
+            <td><?php echo $_POST['price'];?></td>
         </tr>
         <tr>
             <th>出品者</th>
-            <td><a href="mypage2.php?id=<?= ($userinfo['id']); ?>"><?= ($userinfo['nickname']); ?></a></td>
+            <td><a href="mypage2.php?id=<?= ($_POST['userID']); ?>"><?= ($_POST['userNickname']); ?></a></td>
         </tr>
     </tbody>
 </table>

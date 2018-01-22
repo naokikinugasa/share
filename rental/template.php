@@ -120,7 +120,7 @@ require_once(__DIR__.'/head.php');
         </tr>
         <tr>
             <th>出品者</th>
-            <td><a href="mypage2.php?id=<?= ($userinfo['id']); ?>"><?= ($userinfo['nickname']); ?></a></td>
+            <td><a href="mypage.php?id=<?= ($userinfo['id']); ?>"><?= ($userinfo['nickname']); ?></a></td>
         </tr>
     </tbody>
 </table>
@@ -148,6 +148,15 @@ require_once(__DIR__.'/head.php');
       </tr>
           <?php $calendar->show($id, $exhibit); ?>
           <input type="hidden" name="confirm" value="confirm">
+          <input type="hidden" name="gazou" value="<?= $pro['gazou'] ?>">
+          <input type="hidden" name="title" value="<?= $pro['title'] ?>">
+          <input type="hidden" name="price" value="<?= $pro['price'] ?>">
+          <input type="hidden" name="honbun" value="<?= $pro['honbun'] ?>">
+          <input type="hidden" name="category" value="<?= $pro['category'] ?>">
+          <input type="hidden" name="place" value="<?= $pro['place'] ?>">
+          <input type="hidden" name="days" value="<?= $pro['days'] ?>">
+          <input type="hidden" name="userID" value="<?= $userinfo['id'] ?>">
+          <input type="hidden" name="userNickname" value="<?= $userinfo['nickname'] ?>">
           <input class="myButton" type="submit" value="レンタルする">
     </tbody>
     <tfoot>
