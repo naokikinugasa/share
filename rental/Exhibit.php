@@ -68,19 +68,13 @@ class Exhibit{
       $this->_db->exec("update products set fav=$fav WHERE title='$title' ");
     }
     public function insertfav($number,$favn){
-    $number = $number;
-    $favn = $favn;
     $this->_db->exec("insert into fav (number,favn) values ('$number','$favn')");
     }
     public function deletefav($number,$favn){
-    $number = $number;
-    $favn = $favn;
     $this->_db->exec("delete from fav where number='$number' AND favn='$favn'");
     }
     
     public function getfavexist($number,$favn){
-    $number = $number;
-    $favn = $favn;
     $stmt = $this->_db->query("select *from fav WHERE number='$number' AND favn='$favn' ");
     return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
@@ -116,22 +110,16 @@ class Exhibit{
   public function insertmsg($exhn,$id){
     $content = $_POST['content'];
     $fromn = $_SESSION['id'];
-    $exhn = $exhn;
     $number=$id;
     $this->_db->exec("insert into msg (content,fromn,ton,number) values ('$content','$fromn','$exhn','$number')");
   }
   
   
   public function getmsg($ton,$fromn,$number){
-      $ton=$ton;
-      $fromn=$fromn;
-      $number=$number;
       $stmt = $this->_db->query("select * from msg WHERE (ton='$ton' OR ton='$fromn') and (fromn='$fromn' OR fromn='$ton') and number='$number' order by id desc");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
   public function getmsgself($ton,$number){
-      $ton=$ton;
-      $number=$number;
       $stmt = $this->_db->query("select * from msg WHERE ton='$ton' and number='$number' order by id desc");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
@@ -151,23 +139,18 @@ class Exhibit{
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
   public function getmsgpro($ton,$fromn,$number){
-      $ton=$ton;
-      $fromn=$fromn;
-      $number=$number;
       $stmt = $this->_db->query("select * from msg,members WHERE (msg.ton='$ton' OR msg.ton='$fromn') and (msg.fromn='$fromn' OR msg.fromn='$ton') and msg.number='$number' and (msg.ton=members.id OR msg.fromn=members.id) order by id desc");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
 
 
   public function getusrinfo($id){
-      $id = $id;
       $stmt = $this->_db->query("select * from members WHERE id='$id'");
       $pro = $stmt->fetch(\PDO::FETCH_ASSOC);
       return $pro;
     }
   //既読チェック
   public function msgCheck($id){
-      $id=$id;
       $this->_db->exec("update msg set checked=1 WHERE id='$id' ");
     }
 
@@ -201,7 +184,6 @@ class Exhibit{
 
   //検索
   public function search($search){
-      $search=$search;
       $stmt = $this->_db->query("select *from products where title LIKE '%$search%'");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }

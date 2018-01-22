@@ -219,7 +219,7 @@ if (isset($_SESSION['id'])) {
         <form action="" method="post">
          <input type="hidden" name="res" value="res">
          <input type="hidden" name="fromn" value="<?= $fromn; ?>">
-         <textarea class="text" name="content" cols="50" rows="4" placeholder="出品者へメッセージを送る"></textarea><br>
+         <textarea class="text" name="content" cols="50" rows="4"></textarea><br>
          <input class="bu" type="submit" value="送信">
         </form>
         </div>
