@@ -31,6 +31,7 @@ require_once(__DIR__.'/head.php');
 	    <li>名前:<?= ($usr['name'])?></li>
 	    <li>ニックネーム:<?= ($usr['nickname'])?></li>
 	    <li>メールアドレス:<?= ($usr['email'])?></li>
+        <a href="logout.php">ログアウト</a>
 	<h3>出品している商品</h3>
 	  <?php foreach ($products as $product) : ?>
 	  	<a href="template.php?id=<?= ($product->id); ?>">

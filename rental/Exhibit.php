@@ -19,7 +19,6 @@ class Exhibit{
   }
 
 
-
     /*
           商品を取得
                   */
@@ -50,10 +49,6 @@ class Exhibit{
       $stmt = $this->_db->query("select *from fav where favn='$id' order by id desc ");
       return $stmt->fetchALL(\PDO::FETCH_OBJ);
     }
-
-
-
-
 
 
     /*
@@ -100,20 +95,20 @@ class Exhibit{
     $this->_db->exec("insert into members (name,nickname,email,password) values ('$name','$nickname','$email','$password')");
     }
 
-  public function login(){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+  public function login($email, $password){
     $stmt = $this->_db->query("select *from members WHERE email='$email' AND password='$password' ");
     return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-  public function insertmsg($exhn,$id){
+    /*
+        メッセージ
+                */
+  public function insertmsg($content, $fromn, $exhn, $id){
     $content = $_POST['content'];
     $fromn = $_SESSION['id'];
     $number=$id;
     $this->_db->exec("insert into msg (content,fromn,ton,number) values ('$content','$fromn','$exhn','$number')");
   }
-  
   
   public function getmsg($ton,$fromn,$number){
       $stmt = $this->_db->query("select * from msg WHERE (ton='$ton' OR ton='$fromn') and (fromn='$fromn' OR fromn='$ton') and number='$number' order by id desc");
@@ -154,17 +149,9 @@ class Exhibit{
       $this->_db->exec("update msg set checked=1 WHERE id='$id' ");
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    /*
+            予約
+                    */
 
   public function reserve($id, $reservedDay) {
       $this->_db->exec("insert into reservations (productID,date) VALUES ('$id','$reservedDay')");
@@ -173,12 +160,6 @@ class Exhibit{
       $stmt = $this->_db->query("select date from reservations WHERE productid='$id'");
       return $stmt->fetchALL(\PDO::FETCH_COLUMN);
   }
-
-
-
-
-
-
 
 
 

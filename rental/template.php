@@ -15,6 +15,7 @@ function h($s) {
  $id = $_GET['id'];
  $pro = $exhibit->getproduct($id);
  $fav = 0;
+ $hasMessage = false;
 
  //DB++
  if (isset($_POST['good'])) {
@@ -49,27 +50,12 @@ function h($s) {
   //TODO:関連情報をphp側で取るか、dbの結合で取るか。
   $exhn = $pro['exhn'];
   $userinfo = $exhibit->getusrinfo($exhn);
+
+
   //message
-  if (isset($_SESSION['id'])) {
-    $fromn=$_SESSION['id'];
+  if(isset($_POST['message'])) {
+      $exhibit->insertmsg($_POST['content'], $_SESSION['id'], $_POST['toNumber'], $id);
   }
-
-
-//message
-  if(isset($_POST['res2'])){
-    $exhibit->insertmsg($exhn,$id);
-  }
-  //返信
-  if(isset($_POST['res'])){
-    if (isset($_POST['fromn'])) {
-      $fromn = $_POST['fromn'];
-    }
-    $exhibit->insertmsg($fromn,$id);
-  }
-  if (isset($fromn)) {
-    $msgs = $exhibit->getmsg($exhn,$fromn,$id);
-  }
-  /*$msgspro = $exhibit->getmsgpro($exhn,$fromn,$id);*/
 
 require_once(__DIR__.'/head.php');
  ?>
@@ -177,95 +163,58 @@ require_once(__DIR__.'/head.php');
 
 <?php
 if (isset($_SESSION['id'])) {
-    if($exhn==$_SESSION['id']){
-      $msgs = $exhibit->getmsgself($exhn,$id);
-
-      if(isset($_POST['fromn'])){
-        $fromn=$_POST['fromn'];
-        $msgs = $exhibit->getmsg($exhn,$fromn,$id);
-        ?>
+    if($exhn == $_SESSION['id']) {
+        if (isset($_POST['toNumber'])) {
+            $hasMessage = true;
+            $toNumber = $_POST['toNumber'];
+            $msgs = $exhibit->getmsg($exhn, $toNumber, $id);
+        }
+    } else {
+        $hasMessage = true;
+        $toNumber = $exhn;
+        $msgs = $exhibit->getmsg($exhn, $_SESSION['id'], $id);
+    }
+    if ($hasMessage) { ?>
         <div class="syouhinsetumei">メッセージ</div>
         <div class="chat-box">
-      <?php
-         foreach ($msgs as $msg) : ?>
-
-          <div class="chat-area">
-              <!-- チャット画像取得-->
-              <?php
-              $user = $exhibit->getusrinfo($msg->fromn);
-              ?>
-              <img src="images/<?php if ($user['gazou'])  {
-                  echo $user['gazou'];
-                }else{
-                  echo "default.png";
-                }?>" style="border-radius: 20px;
-      height: 40px;
-      width: 40px;
-      margin-left: 5%;" />
-              <div class="chat-hukidashi">
-                <p>
-                <?= ($msg->content); ?>
-                </p>
-              </div>
-          </div>
-          <?php if(($msg->ton)==$_SESSION['id']){
-            $exhibit->msgCheck($msg->id);
-           }?>
-        <?php endforeach;
-      ?>
-      </div>
-      <div class="me">
-        <p>メッセージを送る</p>
-        <form action="" method="post">
-         <input type="hidden" name="res" value="res">
-         <input type="hidden" name="fromn" value="<?= $fromn; ?>">
-         <textarea class="text" name="content" cols="50" rows="4"></textarea><br>
-         <input class="bu" type="submit" value="送信">
-        </form>
-        </div>
-      <?php
-      }
-    }else{
-    ?>
-      <div class="syouhinsetumei">メッセージ</div>
-      <div class="chat-box">
-      <?php $msgs = $exhibit->getmsg($exhn,$fromn,$id);
-        if($msgs){
-         foreach ($msgs as $msg) : ?>
-        <div class="chat-area">
-            <!-- チャット画像取得-->
             <?php
-            $user = $exhibit->getusrinfo($msg->fromn);
+            foreach ($msgs as $msg) : ?>
+
+                <div class="chat-area">
+                    <!-- チャット画像取得-->
+                    <?php
+                    $user = $exhibit->getusrinfo($msg->fromn);
+                    ?>
+                    <img src="images/<?php if ($user['gazou'])  {
+                        echo $user['gazou'];
+                    }else{
+                        echo "default.png";
+                    }?>" style="border-radius: 20px;
+          height: 40px;
+          width: 40px;
+          margin-left: 5%;" />
+                    <div class="chat-hukidashi">
+                        <p>
+                            <?= ($msg->content); ?>
+                        </p>
+                    </div>
+                </div>
+                <?php if(($msg->ton)==$_SESSION['id']){
+                    $exhibit->msgCheck($msg->id);
+                }?>
+            <?php endforeach;
             ?>
-            <img src="images/<?php if ($user['gazou'])  {
-                  echo $user['gazou'];
-                }else{
-                  echo "default.png";
-                }?>" style="border-radius: 20px;
-      height: 40px;
-      width: 40px;
-      margin-left: 5%;" />
-            <div class="chat-hukidashi">
-              <p>
-              <?= ($msg->content); ?>
-              </p>
-            </div>
         </div>
-        <?php if(($msg->ton)==$_SESSION['id']){
-            $exhibit->msgCheck($msg->id);
-           }?>
-        <?php endforeach;
-      }?>
-      </div>
-      <div class="me">
-        <p>出品者へメッセージを送る</p>
-        <form action="" method="post">
-         <input type="hidden" name="res2" value="res2">
-         <textarea class="text" name="content" cols="50" rows="5"></textarea><br>
-         <input class="bu" type="submit" value="送信">
-        </form>
-      </div>
-    <?php
+        <div class="me">
+            <p>メッセージ</p>
+            <form action="" method="post">
+                <input type="hidden" name="message" value="message">
+                <input type="hidden" name="toNumber" value="<?= $toNumber; ?>">
+                <textarea class="text" name="content" cols="50" rows="4"></textarea><br>
+                <input class="bu" type="submit" value="送信">
+            </form>
+        </div>
+        <?php
     }
 } else { ?>
     <div class="syouhinsetumei">メッセージ</div>
@@ -274,9 +223,6 @@ if (isset($_SESSION['id'])) {
 
 
 </div>
-
-
-
 
 
 </div>

@@ -17,7 +17,7 @@ if (isset($_SESSION['id'])) {
     endforeach;
 } else {
     $user_id = 0;
-    print("セッションエラーです");
+    print("セッションエラーです");//TODO:最後に消す
 }
 
 ?>

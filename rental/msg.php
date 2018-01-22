@@ -39,7 +39,7 @@ require_once(__DIR__.'/head.php');
 	        
 	        <img class="msglist" src="images/migiyazirusi.png" style="width: 5%;height: 20%;position: absolute;right: 5%;top: 40%;">
 	        
-	        <input type="hidden" name="fromn" value="<?= $user['id']; ?>">
+	        <input type="hidden" name="toNumber" value="<?= $user['id']; ?>">
 	        <input class="msglist" style="border: solid;width: 100%;height: 100%;position: absolute;top: 0;opacity: 0;" type="submit" value="メッセージを見る">
 	    
 	        
