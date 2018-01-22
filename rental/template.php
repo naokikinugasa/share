@@ -120,7 +120,7 @@ require_once(__DIR__.'/head.php');
         </tr>
         <tr>
             <th>出品者</th>
-            <td><a href="mypage.php?id=<?= ($userinfo['id']); ?>"><?= ($userinfo['nickname']); ?></a></td>
+            <td><a href="mypage.php?id=<?= ($userinfo['id']); ?>"><?= ($userinfo['name']); ?></a></td>
         </tr>
     </tbody>
 </table>
@@ -156,7 +156,7 @@ require_once(__DIR__.'/head.php');
           <input type="hidden" name="place" value="<?= $pro['place'] ?>">
           <input type="hidden" name="days" value="<?= $pro['days'] ?>">
           <input type="hidden" name="userID" value="<?= $userinfo['id'] ?>">
-          <input type="hidden" name="userNickname" value="<?= $userinfo['nickname'] ?>">
+          <input type="hidden" name="name" value="<?= $userinfo['name'] ?>">
           <input class="myButton" type="submit" value="レンタルする">
     </tbody>
     <tfoot>

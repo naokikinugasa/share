@@ -15,12 +15,9 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-
-
-
 if (isset($_POST['confirm2'])) {
     foreach ($_POST['day'] as $reservedDay) :
-    $exhibit->reserve($_GET['id'], $reservedDay);
+    $exhibit->reserve($_GET['id'], $reservedDay, $_SESSION['id']);
     endforeach;
     header("Location: /share/rental/template/thanks.php");
     exit();
@@ -60,7 +57,7 @@ require_once(__DIR__.'/head.php');
         </tr>
         <tr>
             <th>出品者</th>
-            <td><a href="mypage2.php?id=<?= ($_POST['userID']); ?>"><?= ($_POST['userNickname']); ?></a></td>
+            <td><a href="mypage2.php?id=<?= ($_POST['userID']); ?>"><?= ($_POST['name']); ?></a></td>
         </tr>
     </tbody>
 </table>

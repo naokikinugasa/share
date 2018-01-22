@@ -8,7 +8,7 @@ $exhibit = new \MyAPP\Exhibit();
 
 
 if(isset($_POST['title'])){
-$exhibit->insertdb();
+    $exhibit->insertdb($_POST['title'], $_POST['honubn'], $_SESSION['id'], $_POST['gazou'], $_POST['category'], $_POST['price'], $_POST['place'], $_POST['days']);
 }
 
 //page

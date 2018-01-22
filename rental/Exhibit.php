@@ -75,24 +75,12 @@ class Exhibit{
     }
 
 	//出品商品をDBに追加
-	public function insertdb(){
-		$title = $_POST['title'];
-    $honbun = $_POST['honbun'];
-		$exhn = $_SESSION['id'];
-    $gazou = $_POST['gazou'];
-    $category = $_POST['category'];
-    $price = $_POST['price'];
-    $place = $_POST['place'];
-    $days = $_POST['days'];
+	public function insertdb($title, $honbun, $exhn, $gazou, $category, $price, $place, $days){
 		$this->_db->exec("insert into products (title,honbun,exhn,gazou,category,price,place,days) values ('$title','$honbun','$exhn','$gazou','$category','$price','$place','$days')");
 	}
 
-  public function register(){
-    $name = $_POST['name'];
-    $nickname = $_POST['nickname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $this->_db->exec("insert into members (name,nickname,email,password) values ('$name','$nickname','$email','$password')");
+  public function register($name, $email, $password){
+    $this->_db->exec("insert into members (name,email,password) values ('$name','$email','$password')");
     }
 
   public function login($email, $password){
@@ -104,10 +92,7 @@ class Exhibit{
         メッセージ
                 */
   public function insertmsg($content, $fromn, $exhn, $id){
-    $content = $_POST['content'];
-    $fromn = $_SESSION['id'];
-    $number=$id;
-    $this->_db->exec("insert into msg (content,fromn,ton,number) values ('$content','$fromn','$exhn','$number')");
+    $this->_db->exec("insert into msg (content,fromn,ton,number) values ('$content','$fromn','$exhn','$id')");
   }
   
   public function getmsg($ton,$fromn,$number){
@@ -153,8 +138,8 @@ class Exhibit{
             予約
                     */
 
-  public function reserve($id, $reservedDay) {
-      $this->_db->exec("insert into reservations (productID,date) VALUES ('$id','$reservedDay')");
+  public function reserve($id, $reservedDay, $subscriberNumber) {
+      $this->_db->exec("insert into reservations (productID, date, subscriberNumber) VALUES ('$id', '$reservedDay', '$subscriberNumber')");
   }
   public function getReservations($id){
       $stmt = $this->_db->query("select date from reservations WHERE productid='$id'");
