@@ -7,7 +7,7 @@ require_once(__DIR__.'/Exhibit.php');
 $exhibit = new \MyAPP\Exhibit();
 
 $id = $_SESSION['id'];
-$usrs = $exhibit->getusrinfo($id);
+$usr = $exhibit->getusrinfo($id);
 
 $products = $exhibit->getAllex($id);
 
@@ -18,21 +18,19 @@ require_once(__DIR__.'/head.php');
 	<div id="mypage" style="margin-bottom: 100px;">
 	<h3 style="padding:3%;text-align: center;">マイページ</h3>
 	<ul>
-	    <?php foreach ($usrs as $usr) : ?>
 	    <div style="width:100px;height:100px;margin-left: auto;
 	  margin-right: auto;">
-	    <img src="images/<?php if ($usr->gazou)  {
-	    	echo ($usr->gazou);
+	    <img src="images/<?php if ($usr['gazou'])  {
+	    	echo ($usr['gazou']);
 	    }else{
 	    	echo "default.png";
 	    }?>" style="border-radius: 50px;
 	  height: 100px;
 	  width: 100%;" />
 	  	</div>
-	    <li>名前:<?= ($usr->name)?></li>
-	    <li>ニックネーム:<?= ($usr->nickname)?></li>
-	    <li>メールアドレス:<?= ($usr->email)?></li>
-	  <?php endforeach; ?>
+	    <li>名前:<?= ($usr['name'])?></li>
+	    <li>メールアドレス:<?= ($usr['email'])?></li>
+        <a href="logout.php">ログアウト</a>
 	<h3>出品している商品</h3>
 	  <?php foreach ($products as $product) : ?>
 	  	<a href="template.php?id=<?= ($product->id); ?>">

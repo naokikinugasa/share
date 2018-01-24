@@ -8,23 +8,24 @@ $exhibit = new \MyAPP\Exhibit();
 
 
 if(isset($_POST['title'])){
-$exhibit->insertdb();
+    $exhibit->insertdb($_POST['title'], $_POST['honubn'], $_SESSION['id'], $_POST['gazou'], $_POST['category'], $_POST['price'], $_POST['place'], $_POST['days']);
 }
 
 //page
-if (preg_match('/^[1-9][0-9]*$/', $_GET['page'])) {
-    $page = (int)$_GET['page'];
+if (isset($_GET['page'])) {
+    if (preg_match('/^[1-9][0-9]*$/', $_GET['page'])) {
+        $page = (int)$_GET['page'];
+    } else {
+        $page = 1;
+    }
 } else {
     $page = 1;
 }
-
 $PRODUCTS_PER_PAGE = 24;
 $offset = $PRODUCTS_PER_PAGE * ($page - 1);
 $products = $exhibit->getAllPage($offset,$PRODUCTS_PER_PAGE);
 $total = $exhibit->_db->query("select count(*) from products")->fetchColumn();
 $totalPages = ceil($total / $PRODUCTS_PER_PAGE);
-
-
 
 require_once(__DIR__.'/head.php');
 ?>

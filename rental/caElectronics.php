@@ -7,34 +7,36 @@ require_once(__DIR__.'/Exhibit.php');
 $exhibit = new \MyAPP\Exhibit();
 
 
-if(isset($_POST['title'])){
-$exhibit->insertdb();
+if (isset($_GET['category'])) {
+    $category = $_GET['category'];
 }
 
 //page
-if (preg_match('/^[1-9][0-9]*$/', $_GET['page'])) {
-    $page = (int)$_GET['page'];
+if (isset($_GET['page'])) {
+    if (preg_match('/^[1-9][0-9]*$/', $_GET['page']) ) {
+        $page = (int)$_GET['page'];
+    } else {
+        $page = 1;
+    }
 } else {
     $page = 1;
 }
+
 $PRODUCTS_PER_PAGE = 24;
 $offset = $PRODUCTS_PER_PAGE * ($page - 1);
-$products = $exhibit->getAllPage($offset,$PRODUCTS_PER_PAGE);
-$total = $exhibit->_db->query("select count(*) from products")->fetchColumn();
+$products = $exhibit->getAllPageCategory($offset,$PRODUCTS_PER_PAGE,$category);
+$total = $exhibit->_db->query("select count(*) from products WHERE category = '$category'")->fetchColumn();
 $totalPages = ceil($total / $PRODUCTS_PER_PAGE);
 
-
-
-$category = "家電";
-$products = $exhibit->getAllca($category);
-
+var_dump($total);
 require_once(__DIR__.'/head.php');
 ?>
 
 <div id="container">
 
 <div id="product">
-<h2>家電</h2>
+<!--    TODO-->
+<h2><?= $category ?></h2>
 	<ul>
 	<?php foreach ($products as $product) : ?>
 		<a href="template.php?id=<?= ($product->id); ?>">
@@ -50,19 +52,19 @@ require_once(__DIR__.'/head.php');
 
 <div class="pager">
 	<ul>
-	<?php if ($page > 1) : ?>
-	    <li><a href="?page=<?php echo $page-1; ?>"><</a></li>
-	    <?php endif; ?>
-	    <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-	        <?php if ($page == $i) : ?>
-	        <li><strong><a href="?page=<?php echo $i; ?>" style="background: red; color:white;"><?php echo $i; ?></a></strong></li>
-	        <?php else: ?>
-	        <li><a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-	        <?php endif; ?>
-	    <?php endfor; ?>
-	    <?php if ($page < $totalPages) : ?>
-	    <li><a href="?page=<?php echo $page+1; ?>">></a></li>
-	    <?php endif; ?>
+        <?php if ($page > 1) : ?>
+            <li><a href="?category=<?= $category ?>&page=<?php echo $page-1; ?>"><</a></li>
+        <?php endif; ?>
+        <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+            <?php if ($page == $i) : ?>
+                <li><strong><a href="?category=<?= $category ?>&page=<?php echo $i; ?>" style="background: red; color:white;"><?php echo $i; ?></a></strong></li>
+            <?php else: ?>
+                <li><a href="?category=<?= $category ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+            <?php endif; ?>
+        <?php endfor; ?>
+        <?php if ($page < $totalPages) : ?>
+            <li><a href="?category=<?= $category ?>&page=<?php echo $page+1; ?>">></a></li>
+        <?php endif; ?>
 	</ul>
 </div>
 </div>

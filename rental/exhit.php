@@ -9,8 +9,10 @@ define('THUMBNAIL_DIR', __DIR__ . '/thumbs');
 
 require_once(__DIR__ . '/config.php');
 require_once(__DIR__.'/Exhibit.php');
+require_once(__DIR__.'/ImgUpload.php');
 
-$exhibit= new \MyAPP\Exhibit();
+$exhibit = new \MyAPP\Exhibit();
+$imgUpload = new \MyApp\ImgUpload();
 
 $categorys = array('家電','生活用品','スポーツ','ガジェット','楽器','ファッション','趣味','その他');
 
@@ -24,17 +26,15 @@ function h($s) {
   return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
 $image='';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $image = $exhibit->upload();
+if (isset($_FILES['image'])) {
+    $image = $imgUpload->upload();
 }
 
 
 //IsLogin?
-if (isset($_SESSION['id'])) {
-	
-}else {
-	header('Location: login.php');
-	exit();
+if (!isset($_SESSION['id'])) {
+    header('Location: login.php');
+    exit();
 }
 
 require_once(__DIR__.'/head.php');
@@ -52,7 +52,7 @@ require_once(__DIR__.'/head.php');
 		<input type="file" name="image">
 		<input type="submit" value="upload">←ファイルを選択後このボタンを押してください
 		</form>
-	<form method="post" action="products.php">
+	<form method="post" action="exhit2.php">
 		<p>商品名</p>
 		<input class="loginform" type="text" name="title" placeholder="例) プロジェクター" ><br>
 		<p>商品説明</p>
@@ -84,7 +84,8 @@ require_once(__DIR__.'/head.php');
 		<input class="myButtonlog2" type="submit" name="write" value="出品" style="height: 40px;">
 	</form>
 	<p>*出品上の注意</p>
-	<p>ゲーム・漫画・DVD等は著作権に違反するため出品できません。これは出品しても大丈夫なのだろうかと疑問に思うものがあれば、お問い合わせページよりお気軽にご質問ください。</p><br>
+<!--        TODO:お問い合わせリンクに下線つける-->
+        <p>ゲーム・漫画・DVD等は著作権に違反するため出品できません。これは出品しても大丈夫なのだろうかと疑問に思うものがあれば、<a href="contact.php">お問い合わせページ</a>よりお気軽にご質問ください。</p><br>
 	</div>
 </div>
 <?php

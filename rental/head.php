@@ -1,17 +1,25 @@
 <?php
+if (!isset($exhibit)) {
+    $exhibit = new \MyAPP\Exhibit();
+}
+if (isset($_SESSION['id'])) {
 
+    $user_id = $_SESSION['id'];
+    $userhead = $exhibit->getusrinfo($user_id);
+    $readflag = 0;
 
-$user_id = $_SESSION['id'];
-$userhead = $exhibit->getusrinfo2($user_id);
-$readflag = 0;
+    //メッセージ判定
+    $msgs = $exhibit->getmsgTo($user_id);
+    foreach ($msgs as $msg) :
+        if (!($msg->checked == 1)) {
+            $readflag = 1;
+        }
+    endforeach;
+} else {
+    $user_id = 0;
+    print("セッションエラーです");//TODO:最後に消す
+}
 
-//メッセージ判定
-$msgs = $exhibit->getmsgTo($user_id);
-foreach ($msgs as $msg) : 
-    if (!($msg->checked == 1)) {
-    	$readflag = 1;
-    }
-endforeach;
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +28,13 @@ endforeach;
   <meta charset = "utf-8">
   <meta name="viewport" content="width=device-width,initial=1.0">
   <title>web</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="/share/rental/css/style.css">
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
 </head>
 <body>
 	<div id="header">
 		<div id="headerTop">
-			<h1><a href="index.php"><img src="images/logo7.png" alt="" width="160px" height="60px"/></a></h1>
+			<h1><a href="/share/rental/index.php"><img src="/share/rental/images/logo7.png" alt="" width="160px" height="60px"/></a></h1>
 
 <!-- 検索機能
 <form name="searchform4" id="searchform4" method="get" action="#">  
@@ -74,14 +82,15 @@ endforeach;
 		</div>
 		<div id="headerNav">
 			<ul>
-				<li><a href="caElectronics.php">家電</a></li>
-				<li><a href="caDaily.php">生活用品</a></li>
-				<li><a href="caSports.php">スポーツ</a></li>
-				<li><a href="caGadgets.php">ガジェット</a></li>
-				<li><a href="caInstrument.php">楽器</a></li>
-				<li><a href="caFashion.php">ファッション</a></li>
-				<li><a href="caTool.php">趣味</a></li>
-				<li><a href="caOther.php">その他</a></li>
+<!--                TODO:カテゴリー名英語化。dbも。　カテゴリーファイル名も。-->
+				<li><a href="caElectronics.php?category=家電">家電</a></li>
+				<li><a href="caElectronics.php?category=生活用品">生活用品</a></li>
+				<li><a href="caElectronics.php?category=スポーツ">スポーツ</a></li>
+				<li><a href="caElectronics.php?category=ガジェット">ガジェット</a></li>
+				<li><a href="caElectronics.php?category=楽器">楽器</a></li>
+				<li><a href="caElectronics.php?category=ファッション">ファッション</a></li>
+				<li><a href="caElectronics.php?category=趣味">趣味</a></li>
+				<li><a href="caElectronics.php?category=その他">その他</a></li>
 			</ul>
 		</div>
 	</div>

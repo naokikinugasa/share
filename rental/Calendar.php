@@ -1,6 +1,5 @@
 <?php
-
-namespace MyApp;
+//TODO:namespaceの役割理解
 
 
 class Calendar {
@@ -33,65 +32,65 @@ class Calendar {
     return $dt->modify('+1 month')->format('Y-m');
   }
 
-  public function show() {
-    $tail = $this->_getTail();
-    $body = $this->_getBody();
-    $head = $this->_getHead();
-    $html = '<tr>' . $tail . $body . $head . '</tr>';
-    echo $html;
-  }
-
-  private function _getTail() {
-    $tail = '';
-    $lastDayOfPrevMonth = new \DateTime('last day of ' . $this->yearMonth . ' -1 month');
-    while ($lastDayOfPrevMonth->format('w') < 6) {
-      $tail = sprintf('<td class="gray">%d</td>', $lastDayOfPrevMonth->format('d')) . $tail;
-      $lastDayOfPrevMonth->sub(new \DateInterval('P1D'));
+    public function show($id, $exhibit) {
+        $id = $id;
+        $tail = $this->_getTail();
+        $body = $this->_getBody($id, $exhibit);
+        $head = $this->_getHead();
+        $html = '<tr>' . $tail . $body . $head . '</tr>';
+        echo $html;
     }
-    return $tail;
-  }
 
-  private function _getBody() {
-    $body = '';
-    $period = new \DatePeriod(
-      new \DateTime('first day of ' . $this->yearMonth),
-      new \DateInterval('P1D'),
-      new \DateTime('first day of ' . $this->yearMonth . ' +1 month')
-    );
-    $today = new \DateTime('today');
-
-    //配列作成
-    $two = decbin(12);
-    $days = array();
-    for ($j=0; $j <4 ; $j++) { 
-      $get = substr($two, $j,1);
-      array_push($days, $get);
-    }
-    
-    $i = 0;
-    foreach ($period as $day) {
-      if ($day->format('w') === '0') { $body .= '</tr><tr>'; }
-      $todayClass = ($day->format('Y-m-d') === $today->format('Y-m-d')) ? 'today' : '';
-        if($days[$i] == 1){
-          $color = red;
-        }else{
-          $color = gray;
+    private function _getTail() {
+        $tail = '';
+        $lastDayOfPrevMonth = new \DateTime('last day of ' . $this->yearMonth . ' -1 month');
+        while ($lastDayOfPrevMonth->format('w') < 6) {
+            $tail = sprintf('<td class="gray">%d</td>', $lastDayOfPrevMonth->format('d')) . $tail;
+            $lastDayOfPrevMonth->sub(new \DateInterval('P1D'));
         }
-        $i++;
-      $body .= sprintf("<td class='$color'>%d</td>", $day->format('d'));
-      
+        return $tail;
     }
-    return $body;
-  }
 
-  private function _getHead() {
-    $head = '';
-    $firstDayOfNextMonth = new \DateTime('first day of ' . $this->yearMonth . ' +1 month');
-    while ($firstDayOfNextMonth->format('w') > 0) {
-      $head .= sprintf('<td class="gray">%d</td>', $firstDayOfNextMonth->format('d'));
-      $firstDayOfNextMonth->add(new \DateInterval('P1D'));
+    private function _getBody($id, $exhibit) {
+        $id = $id;
+        $reservedDays = $exhibit->getReservations($id);
+        $body = '';
+        $period = new \DatePeriod(
+            new \DateTime('first day of ' . $this->yearMonth),
+            new \DateInterval('P1D'),
+            new \DateTime('first day of ' . $this->yearMonth . ' +1 month')
+        );
+        $today = new \DateTime('today');
+
+        foreach ($period as $day) {
+            if ($day->format('w') === '0') { $body .= '</tr><tr>'; }
+            $todayClass = ($day->format('Y-m-d') === $today->format('Y-m-d')) ? 'today' : '';
+            if(in_array($day->format('Y-m-d'),$reservedDays)){
+                $color = 'gray';
+                $check = 'hidden';
+                $name  = 'hidden';
+//          TODO:hiddenじゃなくてcssで消す
+            }else{
+                $color = 'black';
+                $check = 'checkbox';
+                $name  = 'day[]';
+            }
+            $tmp = $day->format('Y-m-d');
+            $body .= sprintf("<td class='$color'><input type='$check'  name='$name' value='$tmp'>%d</td>", $day->format('d'));
+
+
+        }
+        return $body;
     }
-    return $head;
-  }
+
+    private function _getHead() {
+        $head = '';
+        $firstDayOfNextMonth = new \DateTime('first day of ' . $this->yearMonth . ' +1 month');
+        while ($firstDayOfNextMonth->format('w') > 0) {
+            $head .= sprintf('<td class="gray">%d</td>', $firstDayOfNextMonth->format('d'));
+            $firstDayOfNextMonth->add(new \DateInterval('P1D'));
+        }
+        return $head;
+    }
 
 }

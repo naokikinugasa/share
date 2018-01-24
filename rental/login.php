@@ -9,10 +9,11 @@ $exhibit = new \MyAPP\Exhibit();
 $error['login'] = 0;
 if(!empty($_POST)){
 	if($_POST['email'] && $_POST['password']){
-		$result = $exhibit->login();
+		$result = $exhibit->login($_POST['email'], $_POST['password']);
 		if($result){
 			$_SESSION['id'] = $result['id'];
 			header('Location: mypage.php');
+			exit();
 		}
 	}
 }	

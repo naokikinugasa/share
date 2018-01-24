@@ -6,17 +6,6 @@ require_once(__DIR__.'/Exhibit.php');
 
 $exhibit = new \MyAPP\Exhibit();
 
-$error['login'] = 0;
-if(!empty($_POST)){
-	if($_POST['name'] && $_POST['password']){
-		$result = $exhibit->login();
-		if($result){
-			$_SESSION['id'] = $result['id'];
-			echo $_SESSION['id'];
-			header('Location: mypage.php');
-		}
-	}
-}	
 require_once(__DIR__.'/head.php');
 ?>
 
@@ -26,7 +15,7 @@ require_once(__DIR__.'/head.php');
 	<?php 
 		$msgs = $exhibit->getmsgTo3($user_id);
 		foreach ($msgs as $msg) : 
-			$user = $exhibit->getusrinfo2($msg->fromn); 
+			$user = $exhibit->getusrinfo($msg->fromn);
 			$product = $exhibit->getproduct($msg->number); ?>
 			<form action='template.php?id=<?= ($msg->number); ?>' method='POST'>
 			<div class="<?php if(($msg->checked) == 1) : ?>
@@ -38,7 +27,7 @@ require_once(__DIR__.'/head.php');
 	        
 	        <img class="msglist" src="images/migiyazirusi.png" style="width: 5%;height: 20%;position: absolute;right: 5%;top: 40%;">
 	        
-	        <input type="hidden" name="fromn" value="<?= $user['id']; ?>">
+	        <input type="hidden" name="toNumber" value="<?= $user['id']; ?>">
 	        <input class="msglist" style="border: solid;width: 100%;height: 100%;position: absolute;top: 0;opacity: 0;" type="submit" value="メッセージを見る">
 	    
 	        
